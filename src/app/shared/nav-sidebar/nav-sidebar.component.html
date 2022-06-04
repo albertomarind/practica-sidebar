@@ -3,20 +3,10 @@
         <ng-content select="[header]"></ng-content>
     </div>
     <div class="nav-container-items">
-        <div class="nav-item" (click)="selectItem(item,index)"
-            [ngClass]="{'is-help':item.isHelp,'active':index === selectedIndex}"
+        <div class="nav-item" [ngClass]="{'is-help':item.isHelp,'active':index === selectedIndex}"
             *ngFor="let item of items;let index = index;">
             <ng-container *ngIf="!item.isHelp">
-                <div class="nav-icon">
-                    <app-icon [icon]="item.icon"></app-icon>
-                </div>
-                <div class="nav-label">
-                    {{item.label}}
-                </div>
-            </ng-container>
-
-            <ng-container *ngIf="item.isHelp">
-                <div class="nav-wrapper-help">
+                <div class="nav-item-content" (click)="selectItem(item,index)">
                     <div class="nav-icon">
                         <app-icon [icon]="item.icon"></app-icon>
                     </div>
@@ -24,7 +14,19 @@
                         {{item.label}}
                     </div>
                 </div>
-                <div class="nav-label">
+
+            </ng-container>
+
+            <ng-container *ngIf="item.isHelp">
+                <div class="nav-wrapper-help" (click)="selectItem(item,index)">
+                    <div class="nav-icon">
+                        <app-icon [icon]="item.icon"></app-icon>
+                    </div>
+                    <div class="nav-label">
+                        {{item.label}}
+                    </div>
+                </div>
+                <div class="nav-label" (click)="selectItem(item,index)">
                     {{item.label}}
                 </div>
             </ng-container>

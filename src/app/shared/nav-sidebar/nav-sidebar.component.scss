@@ -1,3 +1,14 @@
+@mixin left-bar {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 4px;
+    height: 100%;
+    background-color: #ec0000;
+}
+
 .nav-sidebar {
     background: #ffffff;
     border: 1px solid black;
@@ -31,6 +42,10 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        margin-top: 32px;
+        @media screen and (min-width: 1240px) {
+            margin-top: 8px;
+        }
         .nav-item {
             margin: 8px 0;
             position: relative;
@@ -51,28 +66,33 @@
                 color: #ec0000;
             }
 
-            &:hover {
+            &:hover:not(.is-help) {
                 color: #ec0000;
-                cursor: pointer;
+            }
 
-                .nav-label {
-                    color: #c90000;
+            &.active,
+            &:hover {
+                &:before {
+                    @include left-bar;
+                    @media screen and (min-width: 1240px) {
+                        display: none;
+                    }
                 }
             }
 
             &.active:not(.is-help),
             &:hover:not(.is-help) {
                 &:before {
-                    @media screen and (min-width: 1240px) {
-                        content: "";
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        display: inline-block;
-                        width: 4px;
-                        height: 100%;
-                        background-color: #ec0000;
-                    }
+                    @include left-bar;
+                }
+            }
+
+            .nav-item-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                @media screen and (min-width: 1240px) {
+                    display: block;
                 }
             }
 
@@ -83,18 +103,15 @@
                     justify-content: center;
                 }
 
-                &:hover {
-                    .nav-label {
-                        font-size: 16px;
-                    }
-                }
-
                 .nav-wrapper-help {
                     box-shadow: 0px 2px 4px rgba(153, 153, 153, 0.5);
                     border-radius: 50%;
                     padding: 8px 16px;
                     .nav-label {
                         display: none;
+                    }
+                    &:hover {
+                        color: #ec0000;
                     }
                     @media screen and (min-width: 1240px) {
                         border-radius: 40px;
@@ -124,10 +141,15 @@
             .nav-label {
                 display: inline-block;
                 font-size: 16px;
+                margin-top: 6px;
+                font-weight: 400;
                 @media screen and (min-width: 1240px) {
                     margin-left: 14px;
+                    margin-top: 0px;
                 }
             }
         }
     }
 }
+
+
